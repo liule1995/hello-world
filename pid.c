@@ -1,23 +1,24 @@
 #include <stdio.h>
 #include <unistd.h>
-#include <stdlib.h>
+
 int main(int argc, const char *argv[])
 {
 	pid_t pid;
-	int num =0;
-	pid = fork();//创建进程后，对父子进程各返回一次，对子进程返回0,对父进程返回父进程的id
-	if(pid==0)//说明当前是子进程，getppid（）获得父进程的id
+	pid = fork();
+	if(0 == pid)
 	{
-		printf("Here is child,id is %d,parent id is %d\n",getpid(),getppid());
-		num++;
+		printf("这是子进程，其id为%d,父进程的id为：%d\n",getpid(),getppid());
 	}
-	else if(pid > 0)//说明对父进程返回子进程的id。此时进程是父进程，pid是子进程
+	else if(pid > 0)
 	{
-		printf("here is parent,mr pid is %d,chile id is%d\n",getpid(),pid);
-		num++;
+		printf("这是一个父进程,id:%d,子进程id为：%d\n",getpid(),pid);
 	}
-	else printf("fork error!\n");
-	printf("num %d",num);
-//	exit(0);
-//	return 0;
+	else
+	{
+		printf("error\n");
+	}
+	printf("hello \n");
+	sleep(10000);
+	printf("bye\n");
+	return 0;
 }
